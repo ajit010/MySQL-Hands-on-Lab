@@ -1,1 +1,13 @@
+Installation of MySQL in Windows :
+
+Go to https://dev.mysql.com/downloads/ 
+
+Download MySQL Community Server and MySQL Workbench
+
+Install MySQL server using recommended options...
+
+Set 'root' user password and save it at someplace (you will be required at login everytime)
+
+Once Installation is complete ... Go to MySQL command-line client to execute commands ...
+
 
