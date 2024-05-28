@@ -10,4 +10,35 @@ Set 'root' user password and save it at someplace (you will be required at login
 
 Once Installation is complete ... Go to MySQL command-line client to execute commands ...
 
+You can also use MySQL Workbench (GUI) to create table and insert data, execute queries etc.
 
+
+(For Linux bash terminal)
+
+Access monitor: mysql -u [username] -p; (will prompt for password)
+
+Show all databases: show databases;
+
+Access database: mysql -u [username] -p [database] (will prompt for password)
+
+
+Commands to use in MySQL CLI :-
+(Commands are Not case-sensitive , you can use create instead of CREATE or SHOW instead of show ... both will work)
+
+1. Creating a new database -
+
+CREATE DATABASE my_database;
+
+2. Using a database -
+
+USE my_database;
+
+3. Show all databases -
+
+SHOW databases;
+
+4. Determine what database is in use: 
+
+SELECT database();
+
+5. 
