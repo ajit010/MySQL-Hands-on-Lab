@@ -13,6 +13,9 @@ Once Installation is complete ... Go to MySQL command-line client to execute com
 You can also use MySQL Workbench (GUI) to create table and insert data, execute queries etc.
 
 
+MySQL Commands reference - https://gist.github.com/hofmannsven/9164408
+
+
 (For Linux bash terminal)
 
 Access monitor: mysql -u [username] -p; (will prompt for password)
@@ -22,8 +25,10 @@ Show all databases: show databases;
 Access database: mysql -u [username] -p [database] (will prompt for password)
 
 
+
 Commands to use in MySQL CLI :-
-(Commands are Not case-sensitive , you can use create instead of CREATE or SHOW instead of show ... both will work)
+(Commands are case-insensitive in Windows, you can use create instead of CREATE or SHOW instead of show, both will work.....but these commands are case-sensitive in Linux)
+
 
 1. Creating a new database -
 
@@ -37,8 +42,34 @@ USE my_database;
 
 SHOW databases;
 
-4. Determine what database is in use: 
+4. Determine what database is in use -
 
 SELECT database();
 
-5. 
+5. Show all tables -
+
+SHOW tables;
+
+6. Show table structure - 
+
+DESCRIBE [table];
+
+7. List all indexes on a table -
+
+SHOW index from [table];
+
+8. Creating a new table with columns -
+
+CREATE TABLE [table] ([column] VARCHAR(120), [another-column] DATETIME);
+
+Example :  
+
+CREATE TABLE users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100),
+  email VARCHAR(100)
+);
+
+
+
+
