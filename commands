@@ -70,6 +70,234 @@ CREATE TABLE users (
   email VARCHAR(100)
 );
 
+9. Inserting data -
+
+INSERT INTO [table] ([column], [column]) VALUES ('[value]', '[value]');
+
+Example :
+
+INSERT INTO users (name, email) VALUES ('John Doe', 'john@example.com');
+
+IMPORTANT NOTE --
+
+Implementation of MySQL INSERT Statement To Add Multiple Rows
+
+CREATE TABLE demotable(  
+StudID int, S_Name varchar(100), S_Course varchar (50) );  
 
 
+INSERT INTO demotable VALUES (1, 'AMAN', 'Mathematics'),  
+ (2, 'HARSH', 'Mathematics'),  
+(3, 'RAHUL', 'Computer Science'),  
+(4, 'ROHIT', 'English'),  
+(5, 'VIJAY', 'Science'); 
 
+
+SELECT * FROM demotable;  
+
+
+10. Querying data -
+
+SELECT * FROM users;
+
+11. 
+
+Data Definition Language (DDL): Defines the structure of the database.
+
+CREATE: Creates new database objects (e.g., tables, indexes).
+ALTER: Modifies existing database objects.
+DROP: Deletes database objects.CREAT, ALTER and DROP Usage -
+
+CREATE TABLE products (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(50),
+  price DECIMAL(10, 2)
+);
+
+12.
+
+Data Manipulation Language (DML): Manages data within database objects.
+
+SELECT: Retrieves data from the database.
+INSERT: Adds new data to the database.
+UPDATE: Modifies existing data.
+DELETE: Removes data from the database.
+
+-- Selecting data
+SELECT * FROM products;
+
+-- Inserting data
+INSERT INTO products (name, price) VALUES ('Laptop', 999.99);
+
+-- Updating data
+UPDATE products SET price = 899.99 WHERE name = 'Laptop';
+
+-- Deleting data
+DELETE FROM products WHERE name = 'Laptop';
+
+
+13.
+
+Data Control Language (DCL): Controls access to data.
+
+GRANT: Gives user access privileges.
+REVOKE: Removes user access privileges.
+
+
+GRANT ALL PRIVILEGES ON my_database.* TO 'user'@'localhost';
+
+
+14. Switch to a different user in MySQL -
+
+SYSTEM mysql -u user -p
+
+15. List of users in MySQL -
+
+ SELECT user FROM mysql.user;
+
+16. Check current user in MySQL -
+
+SELECT user();
+
+17. Creating a new user and granting full privileges -
+
+CREATE USER 'new_user'@'localhost' IDENTIFIED BY 'password';
+
+GRANT ALL PRIVILEGES ON * . * TO 'new_user'@'localhost';
+
+18. 
+
+Transaction Control Language (TCL): Manages transactions.
+
+COMMIT: Saves all changes made in the current transaction.
+ROLLBACK: Undoes all changes made in the current transaction.
+
+START TRANSACTION;
+UPDATE products SET price = 799.99 WHERE name = 'Laptop';
+COMMIT;   -- or ROLLBACK;
+
+
+19. Data-Types -
+
+Example :
+
+CREATE TABLE employees (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100),
+  age INT,
+  salary DECIMAL(10, 2),
+  hire_date DATE,
+  last_login TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+20. Creating and Modifying Tables
+
+Creating Table -
+
+CREATE TABLE students (
+  student_id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100),
+  age INT,
+  enrollment_date DATE
+);
+
+
+Modify Table -
+
+
+Adding a new column:
+
+ALTER TABLE students ADD COLUMN email VARCHAR(100);
+
+Modifying an existing column:
+
+ALTER TABLE students MODIFY COLUMN age TINYINT;
+
+Dropping a column:
+
+ALTER TABLE students DROP COLUMN email;
+
+
+Dropping a Table :
+
+DROP TABLE students;
+
+
+21. Database Schema :
+
+Schema Components:
+
+Tables: Store data in rows and columns.
+Views: Virtual tables based on the result of a SELECT query.
+Indexes: Improve the speed of data retrieval operations.
+Stored Procedures: Reusable SQL code.
+Triggers: Execute actions in response to events on a table.
+
+
+Example:
+Consider a schema for an e-commerce application:
+
+Create the database:
+
+CREATE DATABASE ecommerce;
+USE ecommerce;
+
+Create tables:
+
+CREATE TABLE products (
+  product_id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100),
+  price DECIMAL(10, 2),
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE customers (
+  customer_id INT AUTO_INCREMENT PRIMARY KEY,
+  first_name VARCHAR(100),
+  last_name VARCHAR(100),
+  email VARCHAR(100) UNIQUE
+);
+
+CREATE TABLE orders (
+  order_id INT AUTO_INCREMENT PRIMARY KEY,
+  customer_id INT,
+  order_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+  total DECIMAL(10, 2),
+  FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+);
+
+
+Create a view:
+
+CREATE VIEW order_summary AS
+SELECT o.order_id, c.first_name, c.last_name, o.total, o.order_date
+FROM orders o
+JOIN customers c ON o.customer_id = c.customer_id;
+
+
+Create an index:
+
+CREATE INDEX idx_product_name ON products(name);
+
+
+Create a stored procedure:
+
+CREATE PROCEDURE GetCustomerOrders (IN customer_id INT)
+BEGIN
+  SELECT * FROM orders WHERE customer_id = customer_id;
+END;
+
+
+Create a trigger:
+
+CREATE TRIGGER before_order_insert
+BEFORE INSERT ON orders
+FOR EACH ROW
+BEGIN
+  DECLARE product_count INT;
+  SELECT COUNT(*) INTO product_count FROM products WHERE product_id = NEW.product_id;
+  IF product_count = 0 THEN
+    SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Product does not exist';
+  END IF;
+END;
