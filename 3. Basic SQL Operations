@@ -1,0 +1,202 @@
+Basic SQL Operations -
+
+Inserting Data:
+The INSERT INTO statement is used to add new rows of data to a table.
+
+Syntax:
+
+INSERT INTO table_name (column1, column2, column3, ...)
+VALUES (value1, value2, value3, ...);
+
+
+Example:
+Consider a table employees with columns id, name, age, and department.
+
+
+Creating the table:
+
+
+CREATE TABLE employees (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100),
+  age INT,
+  department VARCHAR(50)
+);
+
+
+Inserting data:
+
+
+INSERT INTO employees (name, age, department)
+VALUES ('Alice', 30, 'HR');
+
+INSERT INTO employees (name, age, department)
+VALUES ('Bob', 25, 'Engineering');
+
+
+Inserting multiple rows:
+
+INSERT INTO employees (name, age, department)
+VALUES ('Charlie', 28, 'Finance'),
+       ('Diana', 35, 'Engineering'),
+       ('Eve', 22, 'HR');
+
+
+Querying Data (SELECT Statements)
+The SELECT statement is used to retrieve data from one or more tables.
+
+Syntax:
+
+SELECT column1, column2, ...
+FROM table_name;
+
+
+Example:
+
+SELECT name, age, department
+FROM employees;
+
+
+To select all columns:
+
+SELECT * FROM employees;
+
+
+
+Filtering Data (WHERE Clause)
+The WHERE clause is used to filter records based on specific conditions.
+
+Syntax:
+
+SELECT column1, column2, ...
+FROM table_name
+WHERE condition;
+
+
+Example:
+
+1. Basic filtering:
+
+SELECT name, age
+FROM employees
+WHERE department = 'Engineering';
+
+
+2. Using comparison operators:
+
+SELECT name, age
+FROM employees
+WHERE age > 30;
+
+3. Combining conditions with AND/OR:
+
+SELECT name, department
+FROM employees
+WHERE age > 25 AND department = 'HR';
+
+
+SELECT name, department
+FROM employees
+WHERE age < 25 OR department = 'Engineering';
+
+
+4. Using IN and BETWEEN:
+
+SELECT name
+FROM employees
+WHERE department IN ('Engineering', 'HR');
+
+
+SELECT name, age
+FROM employees
+WHERE age BETWEEN 25 AND 35;
+
+
+
+Sorting Data (ORDER BY Clause) -
+The ORDER BY clause is used to sort the result set by one or more columns.
+
+Syntax:
+
+SELECT column1, column2, ...
+FROM table_name
+ORDER BY column1 [ASC|DESC], column2 [ASC|DESC], ...;
+
+
+Example:
+
+1. Sorting in ascending order:
+
+SELECT name, age, department
+FROM employees
+ORDER BY age ASC;
+
+
+2. Sorting in descending order:
+
+SELECT name, age, department
+FROM employees
+ORDER BY age DESC;
+
+
+3. Sorting by multiple columns:
+
+SELECT name, age, department
+FROM employees
+ORDER BY department ASC, age DESC;
+
+
+
+Updating Data
+The UPDATE statement is used to modify existing records in a table.
+
+Syntax:
+
+UPDATE table_name
+SET column1 = value1, column2 = value2, ...
+WHERE condition;
+
+
+Example:
+
+1. Updating a single record:
+
+UPDATE employees
+SET age = 32
+WHERE name = 'Alice';
+
+
+2. Updating multiple records:
+
+UPDATE employees
+SET department = 'Operations'
+WHERE department = 'HR';
+
+
+
+Deleting Data
+The DELETE statement is used to remove existing records from a table.
+
+Syntax:
+
+DELETE FROM table_name
+WHERE condition;
+
+
+Example:
+
+1. Deleting a single record:
+
+DELETE FROM employees
+WHERE name = 'Bob';
+
+
+2. Deleting multiple records:
+
+DELETE FROM employees
+WHERE department = 'Finance';
+
+
+Note: Be careful with the DELETE statement without a WHERE clause, as it will delete all records in the table.
+
+DELETE FROM employees;  -- This deletes all records in the employees table
