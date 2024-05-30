@@ -1,3 +1,5 @@
+// MySQL DATA TYPES and SCHEMAS //
+
 19. Data-Types -
 
 Example :
@@ -14,7 +16,8 @@ CREATE TABLE employees (
 
 20. Creating and Modifying Tables
 
-Creating Table -
+-- Creating Table -
+
 
 CREATE TABLE students (
   student_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -24,23 +27,23 @@ CREATE TABLE students (
 );
 
 
-Modify Table -
+-- Modify Table -
 
 
-Adding a new column:
+- Adding a new column:
 
 ALTER TABLE students ADD COLUMN email VARCHAR(100);
 
-Modifying an existing column:
+- Modifying an existing column:
 
 ALTER TABLE students MODIFY COLUMN age TINYINT;
 
-Dropping a column:
+- Dropping a column:
 
 ALTER TABLE students DROP COLUMN email;
 
 
-Dropping a Table :
+- Dropping a Table :
 
 DROP TABLE students;
 
@@ -59,12 +62,13 @@ Triggers: Execute actions in response to events on a table.
 Example:
 Consider a schema for an e-commerce application:
 
-Create the database:
+-- Create the database:
 
 CREATE DATABASE ecommerce;
 USE ecommerce;
 
-Create tables:
+
+-- Create tables:
 
 CREATE TABLE products (
   product_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -73,12 +77,14 @@ CREATE TABLE products (
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+
 CREATE TABLE customers (
   customer_id INT AUTO_INCREMENT PRIMARY KEY,
   first_name VARCHAR(100),
   last_name VARCHAR(100),
   email VARCHAR(100) UNIQUE
 );
+
 
 CREATE TABLE orders (
   order_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -89,7 +95,7 @@ CREATE TABLE orders (
 );
 
 
-Create a view:
+-- Create a view:
 
 CREATE VIEW order_summary AS
 SELECT o.order_id, c.first_name, c.last_name, o.total, o.order_date
@@ -97,12 +103,12 @@ FROM orders o
 JOIN customers c ON o.customer_id = c.customer_id;
 
 
-Create an index:
+-- Create an index:
 
 CREATE INDEX idx_product_name ON products(name);
 
 
-Create a stored procedure:
+-- Create a stored procedure:
 
 CREATE PROCEDURE GetCustomerOrders (IN customer_id INT)
 BEGIN
@@ -110,7 +116,7 @@ BEGIN
 END;
 
 
-Create a trigger:
+-- Create a trigger:
 
 CREATE TRIGGER before_order_insert
 BEFORE INSERT ON orders
