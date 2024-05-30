@@ -1,0 +1,228 @@
+// JOINING TABLES //
+
+
+27. INNER JOIN
+
+An INNER JOIN returns records that have matching values in both tables.
+
+Syntax:
+
+SELECT columns
+FROM table1
+INNER JOIN table2
+ON table1.common_column = table2.common_column;
+
+Example:
+Consider two tables, employees and departments:
+
+employees:
+
+id	name	department_id
+1	Alice	1
+2	Bob	    2
+3	Carol	1
+4	Dave	3
+
+departments:
+
+id	department_name
+1	HR
+2	Engineering
+3	Finance
+
+
+Retrieve employee names and their department names:
+
+SELECT employees.name, departments.department_name
+FROM employees
+INNER JOIN departments
+ON employees.department_id = departments.id;
+
+
+Result:
+
+name	department_name
+Alice	HR
+Bob	Engineering
+Carol	HR
+Dave	Finance
+
+
+
+28. LEFT JOIN
+
+A LEFT JOIN returns all records from the left table (table1) and the matched records from the right table (table2). 
+If there is no match, NULL values are returned for columns from the right table.
+
+Syntax:
+
+SELECT columns
+FROM table1
+LEFT JOIN table2
+ON table1.common_column = table2.common_column;
+
+
+Example:
+Retrieve all employees and their department names, including those without a department:
+
+SELECT employees.name, departments.department_name
+FROM employees
+LEFT JOIN departments
+ON employees.department_id = departments.id;
+
+
+Result:
+
+name	department_name
+Alice	HR
+Bob	    Engineering
+Carol	HR
+Dave	Finance
+Eve	    NULL
+
+
+
+29. RIGHT JOIN
+
+A RIGHT JOIN returns all records from the right table (table2) and the matched records from the left table (table1). 
+If there is no match, NULL values are returned for columns from the left table.
+
+Syntax:
+
+SELECT columns
+FROM table1
+RIGHT JOIN table2
+ON table1.common_column = table2.common_column;
+
+Example:
+Retrieve all departments and their employees, including departments with no employees:
+
+SELECT employees.name, departments.department_name
+FROM employees
+RIGHT JOIN departments
+ON employees.department_id = departments.id;
+
+
+Result:
+
+name	department_name
+Alice	HR
+Bob	Engineering
+Carol	HR
+Dave	Finance
+NULL	Marketing
+
+
+
+30. FULL JOIN
+
+A FULL JOIN (or FULL OUTER JOIN) returns all records when there is a match in either left or right table records. 
+If there is no match, NULL values are returned for columns from the table without a match.
+
+Syntax:
+
+SELECT columns
+FROM table1
+FULL OUTER JOIN table2
+ON table1.common_column = table2.common_column;
+
+
+Example:
+Retrieve all employees and their department names, including unmatched records from both tables:
+
+SELECT employees.name, departments.department_name
+FROM employees
+FULL OUTER JOIN departments
+ON employees.department_id = departments.id;
+
+
+Result:
+
+name	department_name
+Alice	HR
+Bob	    Engineering
+Carol	HR
+Dave	Finance
+Eve	    NULL
+NULL	Marketing
+
+Note: MySQL does not support the FULL OUTER JOIN directly, but you can achieve it using a combination of LEFT JOIN, RIGHT JOIN, and UNION.
+
+
+SELECT employees.name, departments.department_name
+FROM employees
+LEFT JOIN departments ON employees.department_id = departments.id
+UNION
+SELECT employees.name, departments.department_name
+FROM employees
+RIGHT JOIN departments ON employees.department_id = departments.id;
+
+
+
+31. CROSS JOIN:
+
+A CROSS JOIN returns the Cartesian product of the two tables, i.e., it combines each row of the first table with each row of the second table.
+
+Syntax:
+
+SELECT columns
+FROM table1
+CROSS JOIN table2;
+
+
+Example:
+Combine each employee with each department:
+
+SELECT employees.name, departments.department_name
+FROM employees
+CROSS JOIN departments;
+
+
+Result:
+
+name	department_name
+Alice	HR
+Alice	Engineering
+Alice	Finance
+Bob    	HR
+Bob    	Engineering
+Bob    	Finance
+Carol	HR
+Carol	Engineering
+Carol	Finance
+Dave	HR
+Dave	Engineering
+Dave	Finance
+
+
+
+32. SELF JOIN:
+
+A SELF JOIN is a regular join where a table is joined with itself.
+
+Syntax:
+
+SELECT a.columns, b.columns
+FROM table1 a, table1 b
+WHERE a.common_column = b.common_column;
+
+
+Example:
+Find pairs of employees working in the same department:
+
+SELECT e1.name AS Employee1, e2.name AS Employee2, e1.department_id
+FROM employees e1
+JOIN employees e2 ON e1.department_id = e2.department_id
+WHERE e1.id < e2.id;
+
+
+Result:
+
+Employee1	Employee2	department_id
+Alice	    Carol	    1
+Bob      	Dave	    2
+
+
+
+===========================================================================================================================================================
+===========================================================================================================================================================
