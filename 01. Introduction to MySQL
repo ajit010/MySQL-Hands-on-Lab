@@ -1,16 +1,20 @@
-Installation of MySQL in Windows :
+// Introduction to MySQL //
 
-Go to https://dev.mysql.com/downloads/ 
 
-Download MySQL Community Server and MySQL Workbench
+Installation of MySQL (Windows):
 
-Install MySQL server using recommended options...
 
-Set 'root' user password and save it at someplace (you will be required at login everytime)
+-- Go to https://dev.mysql.com/downloads/ 
 
-Once Installation is complete ... Go to MySQL command-line client to execute commands ...
+-- Download MySQL Community Server and MySQL Workbench
 
-You can also use MySQL Workbench (GUI) to create table and insert data, execute queries etc.
+-- Install MySQL server using recommended options...
+
+-- Set 'root' user password and save it at someplace (you will be required at login everytime)
+
+-- Once Installation is complete ... Go to MySQL command-line client to execute commands ...
+
+-- You can also use MySQL Workbench (GUI) to create table and insert data, execute queries etc.
 
 
 MySQL Commands reference - https://gist.github.com/hofmannsven/9164408
@@ -18,16 +22,26 @@ MySQL Commands reference - https://gist.github.com/hofmannsven/9164408
 
 (For Linux bash terminal)
 
-Access monitor: mysql -u [username] -p; (will prompt for password)
 
-Show all databases: show databases;
+-- Access monitor: 
 
-Access database: mysql -u [username] -p [database] (will prompt for password)
+mysql -u [username] -p; (will prompt for password)
+
+
+-- Show all databases: 
+
+SHOW databases;
+
+
+-- Access database:
+
+mysql -u [username] -p [database] (will prompt for password)
 
 
 
 Commands to use in MySQL CLI :-
-(Commands are case-insensitive in Windows, you can use create instead of CREATE or SHOW instead of show, both will work.....but these commands are case-sensitive in Linux)
+(Commands are case-insensitive in Windows, you can use create instead of CREATE or SHOW instead of show, both will work.....
+but these commands are case-sensitive in Linux)
 
 
 1. Creating a new database -
