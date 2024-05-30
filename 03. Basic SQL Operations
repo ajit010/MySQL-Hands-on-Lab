@@ -1,6 +1,8 @@
-Basic SQL Operations -
+// BASIC SQL OPERATIONS //
 
-Inserting Data:
+
+1. INSERTING DATA:
+
 The INSERT INTO statement is used to add new rows of data to a table.
 
 Syntax:
@@ -24,7 +26,7 @@ CREATE TABLE employees (
 );
 
 
-Inserting data:
+-- Inserting data:
 
 
 INSERT INTO employees (name, age, department)
@@ -34,7 +36,7 @@ INSERT INTO employees (name, age, department)
 VALUES ('Bob', 25, 'Engineering');
 
 
-Inserting multiple rows:
+-- Inserting multiple rows:
 
 INSERT INTO employees (name, age, department)
 VALUES ('Charlie', 28, 'Finance'),
@@ -42,7 +44,9 @@ VALUES ('Charlie', 28, 'Finance'),
        ('Eve', 22, 'HR');
 
 
-Querying Data (SELECT Statements)
+
+2. QUERYING DATA (SELECT Statements)
+
 The SELECT statement is used to retrieve data from one or more tables.
 
 Syntax:
@@ -63,7 +67,7 @@ SELECT * FROM employees;
 
 
 
-Filtering Data (WHERE Clause)
+3. Filtering Data (WHERE Clause)
 The WHERE clause is used to filter records based on specific conditions.
 
 Syntax:
@@ -113,7 +117,7 @@ WHERE age BETWEEN 25 AND 35;
 
 
 
-Sorting Data (ORDER BY Clause) -
+4. Sorting Data (ORDER BY Clause) -
 The ORDER BY clause is used to sort the result set by one or more columns.
 
 Syntax:
@@ -147,7 +151,7 @@ ORDER BY department ASC, age DESC;
 
 
 
-Updating Data
+5. Updating Data
 The UPDATE statement is used to modify existing records in a table.
 
 Syntax:
@@ -174,7 +178,7 @@ WHERE department = 'HR';
 
 
 
-Deleting Data
+6. Deleting Data
 The DELETE statement is used to remove existing records from a table.
 
 Syntax:
