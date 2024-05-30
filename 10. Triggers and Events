@@ -1,0 +1,200 @@
+// TRIGGERS and EVENTS //
+
+
+Triggers
+A Trigger is a database object that is automatically executed or fired when certain events occur. Triggers can be used to enforce business rules, validate input data, and maintain an audit trail.
+
+Creating and Managing Triggers:
+
+Syntax:
+
+sql
+Copy code
+CREATE TRIGGER trigger_name
+{BEFORE | AFTER} {INSERT | UPDATE | DELETE}
+ON table_name
+FOR EACH ROW
+BEGIN
+    -- SQL statements
+END;
+Example:
+Create a trigger to log changes to the employees table:
+
+sql
+Copy code
+CREATE TABLE employee_changes (
+    change_id INT AUTO_INCREMENT PRIMARY KEY,
+    employee_id INT,
+    change_type VARCHAR(50),
+    change_time DATETIME
+);
+
+CREATE TRIGGER log_employee_changes
+AFTER INSERT ON employees
+FOR EACH ROW
+BEGIN
+    INSERT INTO employee_changes (employee_id, change_type, change_time)
+    VALUES (NEW.id, 'INSERT', NOW());
+END;
+Managing Triggers:
+To drop a trigger:
+
+sql
+Copy code
+DROP TRIGGER trigger_name;
+Example:
+Drop the log_employee_changes trigger:
+
+sql
+Copy code
+DROP TRIGGER log_employee_changes;
+BEFORE and AFTER Triggers
+Triggers can be set to execute before or after an INSERT, UPDATE, or DELETE operation.
+
+BEFORE Triggers:
+Executed before the triggering event. They are often used for validation or modification of data before it is written to the database.
+
+Example:
+Create a trigger to set the default salary before inserting into the employees table:
+
+sql
+Copy code
+CREATE TRIGGER set_default_salary
+BEFORE INSERT ON employees
+FOR EACH ROW
+BEGIN
+    IF NEW.salary IS NULL THEN
+        SET NEW.salary = 3000;
+    END IF;
+END;
+AFTER Triggers:
+Executed after the triggering event. They are used for logging changes or performing operations that depend on the data already being written.
+
+Example:
+Create a trigger to log updates to the employees table:
+
+sql
+Copy code
+CREATE TRIGGER log_employee_updates
+AFTER UPDATE ON employees
+FOR EACH ROW
+BEGIN
+    INSERT INTO employee_changes (employee_id, change_type, change_time)
+    VALUES (OLD.id, 'UPDATE', NOW());
+END;
+Scheduled Events
+Scheduled events are tasks that run at specified times or intervals. They can be used for routine maintenance tasks, such as backing up data or archiving old records.
+
+Creating and Managing Scheduled Events:
+
+Syntax:
+
+sql
+Copy code
+CREATE EVENT event_name
+ON SCHEDULE {AT timestamp | EVERY interval}
+DO
+BEGIN
+    -- SQL statements
+END;
+Example:
+Create an event to archive old employee records every day:
+
+sql
+Copy code
+CREATE TABLE archived_employees LIKE employees;
+
+CREATE EVENT archive_old_employees
+ON SCHEDULE EVERY 1 DAY
+DO
+BEGIN
+    INSERT INTO archived_employees SELECT * FROM employees WHERE hire_date < DATE_SUB(CURDATE(), INTERVAL 1 YEAR);
+    DELETE FROM employees WHERE hire_date < DATE_SUB(CURDATE(), INTERVAL 1 YEAR);
+END;
+Managing Events:
+To alter an event:
+
+sql
+Copy code
+ALTER EVENT event_name
+ON SCHEDULE {AT timestamp | EVERY interval};
+To drop an event:
+
+sql
+Copy code
+DROP EVENT event_name;
+Example:
+Drop the archive_old_employees event:
+
+sql
+Copy code
+DROP EVENT archive_old_employees;
+Enabling and Disabling Events:
+To enable or disable an event:
+
+sql
+Copy code
+ALTER EVENT event_name ENABLE;
+ALTER EVENT event_name DISABLE;
+Example:
+Disable the archive_old_employees event:
+
+sql
+Copy code
+ALTER EVENT archive_old_employees DISABLE;
+Practical Use Cases
+Audit Trail:
+Use triggers to maintain an audit trail of changes to critical tables.
+
+sql
+Copy code
+CREATE TRIGGER audit_employee_changes
+AFTER UPDATE ON employees
+FOR EACH ROW
+BEGIN
+    INSERT INTO employee_changes (employee_id, change_type, change_time)
+    VALUES (NEW.id, 'UPDATE', NOW());
+END;
+Data Validation:
+Use BEFORE triggers to enforce business rules.
+
+sql
+Copy code
+CREATE TRIGGER validate_salary
+BEFORE INSERT OR UPDATE ON employees
+FOR EACH ROW
+BEGIN
+    IF NEW.salary < 0 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Salary cannot be negative';
+    END IF;
+END;
+Automatic Updates:
+Use AFTER triggers to update related data.
+
+sql
+Copy code
+CREATE TRIGGER update_department_budget
+AFTER INSERT ON employees
+FOR EACH ROW
+BEGIN
+    UPDATE departments
+    SET budget = budget + NEW.salary
+    WHERE id = NEW.department_id;
+END;
+Scheduled Data Maintenance:
+Use scheduled events for routine maintenance tasks.
+
+sql
+Copy code
+CREATE EVENT remove_inactive_users
+ON SCHEDULE EVERY 1 WEEK
+DO
+BEGIN
+    DELETE FROM users WHERE last_login < DATE_SUB(CURDATE(), INTERVAL 6 MONTH);
+END;
+
+
+
+==========================================================================================================================================================
+==========================================================================================================================================================
+
