@@ -1,0 +1,210 @@
+// INDEXES and CONSTRAINTS //
+
+
+1. Primary Keys
+
+A Primary Key is a column (or a set of columns) in a table that uniquely identifies each row in that table. 
+A table can have only one primary key, and the primary key column(s) cannot contain NULL values.
+
+Syntax:
+
+When creating a table :
+
+
+CREATE TABLE table_name (
+    column1 datatype PRIMARY KEY,
+    column2 datatype,
+    ...
+);
+
+
+Adding a primary key to an existing table:
+
+
+ALTER TABLE table_name
+ADD PRIMARY KEY (column1);
+
+
+Example:
+Create an employees table with id as the primary key:
+
+
+CREATE TABLE employees (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    age INT,
+    department_id INT
+);
+
+
+
+2. Foreign Keys
+
+A Foreign Key is a column (or a set of columns) in one table that uniquely identifies rows in another table. 
+The foreign key establishes a relationship between the tables.
+
+Syntax:
+
+When creating a table:
+
+
+CREATE TABLE table_name (
+    column1 datatype,
+    column2 datatype,
+    ...
+    FOREIGN KEY (column) REFERENCES parent_table(column)
+);
+
+
+
+Adding a foreign key to an existing table:
+
+
+ALTER TABLE table_name
+ADD FOREIGN KEY (column) REFERENCES parent_table(column);
+
+
+Example:
+Create a departments table and link it to the employees table with a foreign key:
+
+
+CREATE TABLE departments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    department_name VARCHAR(100)
+);
+
+
+CREATE TABLE employees (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    age INT,
+    department_id INT,
+    FOREIGN KEY (department_id) REFERENCES departments(id)
+);
+
+
+
+
+3. Unique and Not Null Constraints
+
+UNIQUE: Ensures that all values in a column are different.
+NOT NULL: Ensures that a column cannot have NULL values.
+
+
+Syntax:
+
+For UNIQUE-
+
+
+CREATE TABLE table_name (
+    column1 datatype UNIQUE,
+    column2 datatype,
+    ...
+);
+
+ALTER TABLE table_name
+ADD CONSTRAINT constraint_name UNIQUE (column);
+
+
+For NOT NULL:
+
+
+CREATE TABLE table_name (
+    column1 datatype NOT NULL,
+    column2 datatype,
+    ...
+);
+
+ALTER TABLE table_name
+MODIFY column1 datatype NOT NULL;
+
+
+
+Example:
+Create a users table with unique email and non-null username:
+
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE
+);
+
+
+
+
+4. Creating and Using Indexes
+
+Indexes are used to retrieve data from the database more quickly than otherwise. 
+They are created on columns that are often used in WHERE clauses or as part of a join condition.
+
+Syntax:
+
+Creating an index:
+
+
+CREATE INDEX index_name
+ON table_name (column);
+
+
+Dropping an index:
+
+
+DROP INDEX index_name
+ON table_name;
+
+
+
+Example:
+Create an index on the name column of the employees table:
+
+
+CREATE INDEX idx_name
+ON employees (name);
+
+
+Comprehensive Example:
+Let's create a small database with primary keys, foreign keys, unique constraints, not null constraints, and indexes.
+
+
+Create departments table:
+
+CREATE TABLE departments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    department_name VARCHAR(100) NOT NULL UNIQUE
+);
+
+
+Create employees table with foreign key reference to departments:
+
+CREATE TABLE employees (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    age INT,
+    department_id INT,
+    email VARCHAR(100) UNIQUE,
+    FOREIGN KEY (department_id) REFERENCES departments(id)
+);
+
+
+Insert data into departments:
+
+INSERT INTO departments (department_name) VALUES ('HR'), ('Engineering'), ('Finance');
+
+
+Insert data into employees:
+
+INSERT INTO employees (name, age, department_id, email) VALUES 
+('Alice', 30, 1, 'alice@example.com'),
+('Bob', 25, 2, 'bob@example.com'),
+('Carol', 28, 1, 'carol@example.com');
+
+
+Create an index on the name column of employees:
+
+CREATE INDEX idx_name ON employees (name);
+
+
+
+============================================================================================================================================================
+============================================================================================================================================================
